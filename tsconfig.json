@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": false,
+    "importHelpers": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.iterable",
+      "es2015.promise",
+      "es2015.core",
+      "es2015.symbol",
+      "es2015.symbol.wellknown",
+      "es2015.proxy",
+      "esnext",
+      "esnext.intl"
+    ]
+  }
+}
