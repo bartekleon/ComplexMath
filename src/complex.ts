@@ -98,8 +98,8 @@ class Complex {
     }
 
     const one = (Math.E ** (-j * Math.atan2(y, x))) * Math.hypot(x, y) ** i;
-    const two = j * Math.log(x ** 2 + y ** 2) / 2;
-    return new Complex([one * Math.cos(two), one * Math.sin(two)]).multiply([Math.cos(Math.atan2(y, x) * i), Math.sin(Math.atan2(y, x) * i)]);
+    const two = j * Math.log(Math.hypot(x, y));
+    return new Complex([one * Math.cos(two + Math.atan2(y, x) * i), one * Math.sin(two + Math.atan2(y, x) * i)]);
   }
   public root(a: number | Complex = 2): Complex {
     if (a instanceof Complex) {

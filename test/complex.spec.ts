@@ -209,7 +209,7 @@ describe('log', () => {
 
 describe('power', () => {
   it('1', () => {
-    expect(new Complex([2, 1]).power([0, 0.5]).stringify()).to.be.equal('0.7297497015314676+0.3105648680121104i');
+    expect(new Complex([2, 1]).power([0, 0.5]).stringify()).to.be.equal('0.7297497015314675+0.3105648680121105i');
   });
   it('2', () => {
     expect(() => new Complex('0 ^ 0').stringify()).to.throw(Error, 'You cannot rise 0 to the power of 0');
