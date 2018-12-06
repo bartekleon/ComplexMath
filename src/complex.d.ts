@@ -1,16 +1,16 @@
 declare type complex = [number, number];
 declare class Complex {
     private readonly numbers;
-    constructor(a: complex | string);
+    constructor(a: Complex | complex | number | string);
     stringify(): string;
-    add(...a: (complex | Complex)[]): Complex;
-    subtract(...a: (complex | Complex)[]): Complex;
-    multiply(...a: (complex | Complex)[]): Complex;
-    divide(a: complex | Complex): Complex;
-    power(a: complex | Complex): Complex;
-    root(a?: number | Complex): Complex;
+    add(...a: (Complex | complex | number | string)[]): Complex;
+    subtract(...a: (Complex | complex | number | string)[]): Complex;
+    multiply(...a: (Complex | complex | number | string)[]): Complex;
+    divide(a: Complex | complex | number | string): Complex;
+    power(a: Complex | complex | number | string): Complex;
+    root(a?: Complex | complex | number | string): Complex;
     ln(): Complex;
-    log(a?: number | complex | Complex): Complex;
+    log(a?: Complex | complex | number | string): Complex;
     sin(): Complex;
     cos(): Complex;
     tan(): Complex;

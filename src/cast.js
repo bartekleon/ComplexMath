@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const complex_1 = require("./complex");
-const cast = (a) => (a instanceof complex_1.default) ? a : new complex_1.default(a);
+const cast = (a) => new complex_1.default(a);
 cast.add = (a, ...b) => cast(a).add(...b);
 cast.subtract = (a, ...b) => cast(a).subtract(...b);
 cast.multiply = (a, ...b) => cast(a).multiply(...b);
