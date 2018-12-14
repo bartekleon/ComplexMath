@@ -40,6 +40,7 @@ interface Icast {
     I(a: Complex | complex | number | string): number;
     get(a: Complex | complex | number | string): complex;
     stringify(a: Complex | complex | number | string): string;
+    equal(a: Complex | complex | number | string, b: Complex | complex | number | string): boolean;
     evaluate(a: string): string;
     LOGIE: complex;
     LOGEI: complex;

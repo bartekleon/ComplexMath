@@ -40,5 +40,6 @@ declare class Complex {
     R(): number;
     I(): number;
     get(): complex;
+    equal(n: Complex | complex | number | string): boolean;
 }
 export default Complex;

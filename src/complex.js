@@ -229,6 +229,11 @@ class Complex {
     get() {
         return this.numbers[0];
     }
+    equal(n) {
+        n = new Complex(n).get();
+        const [x, y] = this.get();
+        return n[0] === x && n[1] === y;
+    }
 }
 exports.default = Complex;
 //# sourceMappingURL=complex.js.map

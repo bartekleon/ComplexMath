@@ -234,6 +234,11 @@ class Complex {
   public get(): complex {
     return this.numbers[0];
   }
+  public equal(n: Complex | complex | number | string): boolean {
+    n = new Complex(n).get();
+    const [x, y] = this.get();
+    return n[0] === x && n[1] === y;
+  }
 }
 
 export default Complex;

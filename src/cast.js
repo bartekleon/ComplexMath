@@ -40,6 +40,7 @@ cast.R = (a) => cast(a).R();
 cast.I = (a) => cast(a).I();
 cast.get = (a) => cast(a).get();
 cast.stringify = (a) => cast(a).stringify();
+cast.equal = (a, b) => cast(a).equal(b);
 cast.evaluate = (a) => cast(a).stringify();
 cast.LOGEI = [0, Math.PI / 2];
 cast.LOGIE = [0, -2 / Math.PI];

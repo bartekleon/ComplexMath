@@ -70,6 +70,9 @@ describe('parser', () => {
     it('21', () => {
         chai_1.expect(cast_1.default.evaluate('log(2, (3 - i))')).to.be.equal('1.6609640474436813-0.4641879292313103i');
     });
+    it('22', () => {
+        chai_1.expect(cast_1.default.evaluate('E')).to.be.equal(String(Math.E));
+    });
 });
 describe('stringify', () => {
     it('should stringify both positive number', () => {
@@ -306,6 +309,11 @@ describe('getters', () => {
     });
     it('conjugate', () => {
         chai_1.expect(cast_1.default.conjugate([3, 4]).get()).to.deep.equal([3, -4]);
+    });
+});
+describe('equal', () => {
+    it('1', () => {
+        chai_1.expect(cast_1.default.equal('acsch(2+i)', '0.3965682301123289-0.18631805410781554i')).to.be.true;
     });
 });
 //# sourceMappingURL=cast.spec.js.map

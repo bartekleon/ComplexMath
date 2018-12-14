@@ -298,4 +298,9 @@ describe('getters', () => {
         chai_1.expect(new complex_1.default([2, 1]).I()).to.be.equal(1);
     });
 });
+describe('equal', () => {
+    it('1', () => {
+        chai_1.expect(new complex_1.default([2, 1]).acsch().equal('0.3965682301123289-0.18631805410781554i')).to.be.true;
+    });
+});
 //# sourceMappingURL=complex.spec.js.map

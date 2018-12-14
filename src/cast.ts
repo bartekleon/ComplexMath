@@ -49,6 +49,8 @@ interface Icast {
   get(a: Complex | complex | number | string): complex;
   stringify(a: Complex | complex | number | string): string;
 
+  equal(a: Complex | complex | number | string, b: Complex | complex | number | string): boolean;
+
   evaluate(a: string): string;
 
   LOGIE: complex;
@@ -100,6 +102,8 @@ cast.R = (a: Complex | complex | number | string): number => cast(a).R();
 cast.I = (a: Complex | complex | number | string): number => cast(a).I();
 cast.get = (a: Complex | complex | number | string): complex => cast(a).get();
 cast.stringify = (a: Complex | complex | number | string): string => cast(a).stringify();
+
+cast.equal = (a: Complex | complex | number | string, b: Complex | complex | number | string): boolean => cast(a).equal(b);
 
 cast.evaluate = (a: string): string => cast(a).stringify();
 

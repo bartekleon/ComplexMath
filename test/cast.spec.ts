@@ -69,6 +69,9 @@ describe('parser', () => {
   it('21', () => {
     expect(cast.evaluate('log(2, (3 - i))')).to.be.equal('1.6609640474436813-0.4641879292313103i');
   });
+  it('22', () => {
+    expect(cast.evaluate('E')).to.be.equal(String(Math.E));
+  });
 });
 
 describe('stringify', () => {
@@ -319,5 +322,11 @@ describe('getters', () => {
   });
   it('conjugate', () => {
     expect(cast.conjugate([3, 4]).get()).to.deep.equal([3, -4]);
+  });
+});
+
+describe('equal', () => {
+  it('1', () => {
+    expect(cast.equal('acsch(2+i)', '0.3965682301123289-0.18631805410781554i')).to.be.true;
   });
 });
