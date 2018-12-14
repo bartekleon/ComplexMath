@@ -474,12 +474,44 @@ Parser.Parser = () => {
 Parser.Context = () => {
 
   const Constants = {
+    E: [Math.E, 0],
+    LOGEI: [0, Math.PI / 2],
+    LOGIE: [0, -2 / Math.PI],
     pi: [Math.PI, 0],
     Pi: [Math.PI, 0],
     PI: [Math.PI, 0]
   };
 
-  const Functions = ['abs', 'acos', 'asin', 'atan', 'cos', 'ln', 'log', 'root', 'sin', 'tan'];
+  const Functions = [
+    'abs',
+    'acos',
+    'acosh',
+    'acot',
+    'acoth',
+    'acsc',
+    'acsch',
+    'asec',
+    'asech',
+    'asin',
+    'asinh',
+    'atan',
+    'atanh',
+    'cos',
+    'coh',
+    'cot',
+    'coth',
+    'csc',
+    'csch',
+    'log',
+    'ln',
+    'root',
+    'sec',
+    'sech',
+    'sin',
+    'sinh',
+    'tan',
+    'tanh'
+  ];
 
   return {
     Constants,
