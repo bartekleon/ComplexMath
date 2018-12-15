@@ -1,16 +1,18 @@
+declare type extract<T> = T;
 declare type complex = [number, number];
+declare type T = extract<Complex | complex | number | string>;
 declare class Complex {
     private readonly numbers;
-    constructor(a: Complex | complex | number | string);
+    constructor(a: T);
     stringify(): string;
-    add(...a: (Complex | complex | number | string)[]): Complex;
-    subtract(...a: (Complex | complex | number | string)[]): Complex;
-    multiply(...a: (Complex | complex | number | string)[]): Complex;
-    divide(a: Complex | complex | number | string): Complex;
-    power(a: Complex | complex | number | string): Complex;
-    root(a?: Complex | complex | number | string): Complex;
+    add(...a: T[]): Complex;
+    subtract(...a: T[]): Complex;
+    multiply(...a: T[]): Complex;
+    divide(a: T): Complex;
+    power(a: T): Complex;
+    root(a?: T): Complex;
     ln(): Complex;
-    log(a?: Complex | complex | number | string): Complex;
+    log(a?: T): Complex;
     sin(): Complex;
     cos(): Complex;
     tan(): Complex;
@@ -40,6 +42,6 @@ declare class Complex {
     R(): number;
     I(): number;
     get(): complex;
-    equal(n: Complex | complex | number | string): boolean;
+    equal(n: T): boolean;
 }
 export default Complex;

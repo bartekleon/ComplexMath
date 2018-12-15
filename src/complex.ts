@@ -1,10 +1,12 @@
 import Parser from './parser';
 
+type extract<T> = T;
 type complex = [number, number];
+type T = extract<Complex | complex | number | string>;
 
 class Complex {
   private readonly numbers: complex[] = [];
-  constructor(a: Complex | complex | number | string) {
+  constructor(a: T) {
     // number
     if (typeof a === 'number') {
       this.numbers[0] = [a, 0];
@@ -28,7 +30,7 @@ class Complex {
     }
     return x.join(x[1] > 0 ? '+' : '') + 'i';
   }
-  public add(...a: (Complex | complex | number | string)[]): Complex {
+  public add(...a: T[]): Complex {
     const result = this.get();
     for (const x of a) {
       const c = new Complex(x).get();
@@ -38,7 +40,7 @@ class Complex {
     this.numbers[0] = result;
     return this;
   }
-  public subtract(...a: (Complex | complex | number | string)[]): Complex {
+  public subtract(...a: T[]): Complex {
     const result = this.get();
     for (const x of a) {
       const c = new Complex(x).get();
@@ -48,7 +50,7 @@ class Complex {
     this.numbers[0] = result;
     return this;
   }
-  public multiply(...a: (Complex | complex | number | string)[]): Complex {
+  public multiply(...a: T[]): Complex {
     for (const c of a) {
       const [x, y] = this.get();
       const f = new Complex(c).get();
@@ -59,7 +61,7 @@ class Complex {
     }
     return this;
   }
-  public divide(a: Complex | complex | number | string): Complex {
+  public divide(a: T): Complex {
     const c = new Complex(a).get();
     const [x, y] = this.get();
 
@@ -71,7 +73,7 @@ class Complex {
 
     return new Complex([r * Math.cos(theta), r * Math.sin(theta)]);
   }
-  public power(a: Complex | complex | number | string): Complex {
+  public power(a: T): Complex {
     const [x, y] = this.get();
     const [i, j] = new Complex(a).get();
 
@@ -90,7 +92,7 @@ class Complex {
     const two = j * Math.log(Math.hypot(x, y)) + Math.atan2(y, x) * i;
     return new Complex([one * Math.cos(two), one * Math.sin(two)]);
   }
-  public root(a: Complex | complex | number | string = 2): Complex {
+  public root(a: T = 2): Complex {
     a = new Complex(a).get();
     if (a[1] !== 0) {
       throw new TypeError('Complex number cannot have imaginary part. Use `power` instead');
@@ -118,7 +120,7 @@ class Complex {
   public ln(): Complex {
     return new Complex([Math.log(this.abs()), Math.atan2(this.numbers[0][1], this.numbers[0][0])]);
   }
-  public log(a: Complex | complex | number | string = Math.E): Complex {
+  public log(a: T = Math.E): Complex {
     const x = new Complex(a).get();
     if (x[1] === 0) {
       if (x[0] === Math.E) {
@@ -234,7 +236,7 @@ class Complex {
   public get(): complex {
     return this.numbers[0];
   }
-  public equal(n: Complex | complex | number | string): boolean {
+  public equal(n: T): boolean {
     n = new Complex(n).get();
     const [x, y] = this.get();
     return n[0] === x && n[1] === y;

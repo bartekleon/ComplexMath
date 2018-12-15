@@ -1,55 +1,57 @@
 import Complex from './complex';
 
+type extract<T> = T;
 type complex = [number, number];
+type T = extract<Complex | complex | number | string>;
 
 interface Icast {
-  (a: Complex | complex | number | string): Complex;
+  (a: T): Complex;
 
-  add(a: Complex | complex | number | string, ...b: (Complex | complex | number | string)[]): Complex;
-  subtract(a: Complex | complex | number | string, ...b: (Complex | complex | number | string)[]): Complex;
-  multiply(a: Complex | complex | number | string, ...b: (Complex | complex | number | string)[]): Complex;
-  divide(a: Complex | complex | number | string, b: Complex | complex | number | string): Complex;
-  power(a: Complex | complex | number | string, b: Complex | complex | number | string): Complex;
-  root(a: Complex | complex | number | string, b: number): Complex;
-  ln(a: Complex | complex | number | string): Complex;
-  log(a: Complex | complex | number | string, b: Complex | complex | number | string): Complex;
+  add(a: T, ...b: T[]): Complex;
+  subtract(a: T, ...b: T[]): Complex;
+  multiply(a: T, ...b: T[]): Complex;
+  divide(a: T, b: T): Complex;
+  power(a: T, b: T): Complex;
+  root(a: T, b: number): Complex;
+  ln(a: T): Complex;
+  log(a: T, b: T): Complex;
 
-  sin(a: Complex | complex | number | string): Complex;
-  cos(a: Complex | complex | number | string): Complex;
-  tan(a: Complex | complex | number | string): Complex;
-  cot(a: Complex | complex | number | string): Complex;
-  sec(a: Complex | complex | number | string): Complex;
-  csc(a: Complex | complex | number | string): Complex;
+  sin(a: T): Complex;
+  cos(a: T): Complex;
+  tan(a: T): Complex;
+  cot(a: T): Complex;
+  sec(a: T): Complex;
+  csc(a: T): Complex;
 
-  asin(a: Complex | complex | number | string): Complex;
-  acos(a: Complex | complex | number | string): Complex;
-  atan(a: Complex | complex | number | string): Complex;
-  acot(a: Complex | complex | number | string): Complex;
-  asec(a: Complex | complex | number | string): Complex;
-  acsc(a: Complex | complex | number | string): Complex;
+  asin(a: T): Complex;
+  acos(a: T): Complex;
+  atan(a: T): Complex;
+  acot(a: T): Complex;
+  asec(a: T): Complex;
+  acsc(a: T): Complex;
 
-  sinh(a: Complex | complex | number | string): Complex;
-  cosh(a: Complex | complex | number | string): Complex;
-  tanh(a: Complex | complex | number | string): Complex;
-  coth(a: Complex | complex | number | string): Complex;
-  sech(a: Complex | complex | number | string): Complex;
-  csch(a: Complex | complex | number | string): Complex;
+  sinh(a: T): Complex;
+  cosh(a: T): Complex;
+  tanh(a: T): Complex;
+  coth(a: T): Complex;
+  sech(a: T): Complex;
+  csch(a: T): Complex;
 
-  asinh(a: Complex | complex | number | string): Complex;
-  acosh(a: Complex | complex | number | string): Complex;
-  atanh(a: Complex | complex | number | string): Complex;
-  acoth(a: Complex | complex | number | string): Complex;
-  asech(a: Complex | complex | number | string): Complex;
-  acsch(a: Complex | complex | number | string): Complex;
+  asinh(a: T): Complex;
+  acosh(a: T): Complex;
+  atanh(a: T): Complex;
+  acoth(a: T): Complex;
+  asech(a: T): Complex;
+  acsch(a: T): Complex;
 
-  abs(a: Complex | complex | number | string): number;
-  conjugate(a: Complex | complex | number | string): Complex;
-  R(a: Complex | complex | number | string): number;
-  I(a: Complex | complex | number | string): number;
-  get(a: Complex | complex | number | string): complex;
-  stringify(a: Complex | complex | number | string): string;
+  abs(a: T): number;
+  conjugate(a: T): Complex;
+  R(a: T): number;
+  I(a: T): number;
+  get(a: T): complex;
+  stringify(a: T): string;
 
-  equal(a: Complex | complex | number | string, b: Complex | complex | number | string): boolean;
+  equal(a: T, b: T): boolean;
 
   evaluate(a: string): string;
 
@@ -57,53 +59,53 @@ interface Icast {
   LOGEI: complex;
 }
 
-const cast: Icast = (a: Complex | complex | number | string): Complex => new Complex(a);
+const cast: Icast = (a: T): Complex => new Complex(a);
 
-cast.add = (a: Complex | complex | number | string, ...b: (Complex | complex | number | string)[]): Complex => cast(a).add(...b);
-cast.subtract = (a: Complex | complex | number | string, ...b: (Complex | complex | number | string)[]): Complex => cast(a).subtract(...b);
-cast.multiply = (a: Complex | complex | number | string, ...b: (Complex | complex | number | string)[]): Complex => cast(a).multiply(...b);
-cast.divide = (a: Complex | complex | number | string, b: Complex | complex | number | string): Complex => cast(a).divide(b);
-cast.power = (a: Complex | complex | number | string, b: Complex | complex | number | string): Complex => cast(a).power(b);
-cast.root = (a: Complex | complex | number | string, b: Complex | complex | number | string): Complex => cast(a).root(b);
-cast.ln = (a: Complex | complex | number | string): Complex => cast(a).ln();
-cast.log = (a: Complex | complex | number | string, b: Complex | complex | number | string): Complex => cast(a).log(b);
+cast.add = (a: T, ...b: T[]): Complex => cast(a).add(...b);
+cast.subtract = (a: T, ...b: T[]): Complex => cast(a).subtract(...b);
+cast.multiply = (a: T, ...b: T[]): Complex => cast(a).multiply(...b);
+cast.divide = (a: T, b: T): Complex => cast(a).divide(b);
+cast.power = (a: T, b: T): Complex => cast(a).power(b);
+cast.root = (a: T, b: T): Complex => cast(a).root(b);
+cast.ln = (a: T): Complex => cast(a).ln();
+cast.log = (a: T, b: T): Complex => cast(a).log(b);
 
-cast.sin = (a: Complex | complex | number | string): Complex => cast(a).sin();
-cast.cos = (a: Complex | complex | number | string): Complex => cast(a).cos();
-cast.tan = (a: Complex | complex | number | string): Complex => cast(a).tan();
-cast.cot = (a: Complex | complex | number | string): Complex => cast(a).cot();
-cast.sec = (a: Complex | complex | number | string): Complex => cast(a).sec();
-cast.csc = (a: Complex | complex | number | string): Complex => cast(a).csc();
+cast.sin = (a: T): Complex => cast(a).sin();
+cast.cos = (a: T): Complex => cast(a).cos();
+cast.tan = (a: T): Complex => cast(a).tan();
+cast.cot = (a: T): Complex => cast(a).cot();
+cast.sec = (a: T): Complex => cast(a).sec();
+cast.csc = (a: T): Complex => cast(a).csc();
 
-cast.asin = (a: Complex | complex | number | string): Complex => cast(a).asin();
-cast.acos = (a: Complex | complex | number | string): Complex => cast(a).acos();
-cast.atan = (a: Complex | complex | number | string): Complex => cast(a).atan();
-cast.acot = (a: Complex | complex | number | string): Complex => cast(a).acot();
-cast.asec = (a: Complex | complex | number | string): Complex => cast(a).asec();
-cast.acsc = (a: Complex | complex | number | string): Complex => cast(a).acsc();
+cast.asin = (a: T): Complex => cast(a).asin();
+cast.acos = (a: T): Complex => cast(a).acos();
+cast.atan = (a: T): Complex => cast(a).atan();
+cast.acot = (a: T): Complex => cast(a).acot();
+cast.asec = (a: T): Complex => cast(a).asec();
+cast.acsc = (a: T): Complex => cast(a).acsc();
 
-cast.sinh = (a: Complex | complex | number | string): Complex => cast(a).sinh();
-cast.cosh = (a: Complex | complex | number | string): Complex => cast(a).cosh();
-cast.tanh = (a: Complex | complex | number | string): Complex => cast(a).tanh();
-cast.coth = (a: Complex | complex | number | string): Complex => cast(a).coth();
-cast.sech = (a: Complex | complex | number | string): Complex => cast(a).sech();
-cast.csch = (a: Complex | complex | number | string): Complex => cast(a).csch();
+cast.sinh = (a: T): Complex => cast(a).sinh();
+cast.cosh = (a: T): Complex => cast(a).cosh();
+cast.tanh = (a: T): Complex => cast(a).tanh();
+cast.coth = (a: T): Complex => cast(a).coth();
+cast.sech = (a: T): Complex => cast(a).sech();
+cast.csch = (a: T): Complex => cast(a).csch();
 
-cast.asinh = (a: Complex | complex | number | string): Complex => cast(a).asinh();
-cast.acosh = (a: Complex | complex | number | string): Complex => cast(a).acosh();
-cast.atanh = (a: Complex | complex | number | string): Complex => cast(a).atanh();
-cast.acoth = (a: Complex | complex | number | string): Complex => cast(a).acoth();
-cast.asech = (a: Complex | complex | number | string): Complex => cast(a).asech();
-cast.acsch = (a: Complex | complex | number | string): Complex => cast(a).acsch();
+cast.asinh = (a: T): Complex => cast(a).asinh();
+cast.acosh = (a: T): Complex => cast(a).acosh();
+cast.atanh = (a: T): Complex => cast(a).atanh();
+cast.acoth = (a: T): Complex => cast(a).acoth();
+cast.asech = (a: T): Complex => cast(a).asech();
+cast.acsch = (a: T): Complex => cast(a).acsch();
 
-cast.abs = (a: Complex | complex | number | string): number => cast(a).abs();
-cast.conjugate = (a: Complex | complex | number | string): Complex => cast(a).conjugate();
-cast.R = (a: Complex | complex | number | string): number => cast(a).R();
-cast.I = (a: Complex | complex | number | string): number => cast(a).I();
-cast.get = (a: Complex | complex | number | string): complex => cast(a).get();
-cast.stringify = (a: Complex | complex | number | string): string => cast(a).stringify();
+cast.abs = (a: T): number => cast(a).abs();
+cast.conjugate = (a: T): Complex => cast(a).conjugate();
+cast.R = (a: T): number => cast(a).R();
+cast.I = (a: T): number => cast(a).I();
+cast.get = (a: T): complex => cast(a).get();
+cast.stringify = (a: T): string => cast(a).stringify();
 
-cast.equal = (a: Complex | complex | number | string, b: Complex | complex | number | string): boolean => cast(a).equal(b);
+cast.equal = (a: T, b: T): boolean => cast(a).equal(b);
 
 cast.evaluate = (a: string): string => cast(a).stringify();
 
