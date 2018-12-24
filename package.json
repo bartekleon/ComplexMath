@@ -7,8 +7,7 @@
     "clean": "rimraf \"+(test|src)/**/*+(.d.ts|.js|.map)\" .nyc_output coverage",
     "prebuild": "npm run clean && tslint -p tsconfig.json",
     "build": "tsc -p .",
-    "postbuild": "typedoc ./src --out docs/ --theme minimal",
-    "test": "npm run build && nyc --include src/**/*.js --reporter=html --report-dir=coverage --check-coverage --lines 100 --functions 100 --branches 100 mocha \"test/**/*.js\""
+    "test": "npm run build && nyc --include src/**/*.js --reporter=html --report-dir=coverage --check-coverage mocha \"test/**/*.js\""
   },
   "author": "kmdrGroch",
   "license": "MIT",
@@ -20,7 +19,6 @@
     "nyc": "^13.1.0",
     "rimraf": "^2.6.2",
     "tslint": "^5.11.0",
-    "typedoc": "^0.13.0",
-    "typescript": "^3.2.1"
+    "typescript": "^3.2.2"
   }
 }
