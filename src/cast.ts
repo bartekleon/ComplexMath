@@ -1,62 +1,62 @@
 import Complex from './complex';
 
-type extract<T> = T;
+type extract<Type> = Type;
 type complex = [number, number];
 type T = extract<Complex | complex | number | string>;
 
 interface Icast {
   (a: T): Complex;
+  LOGEI: complex;
 
-  add(a: T, ...b: T[]): Complex;
-  subtract(a: T, ...b: T[]): Complex;
-  multiply(a: T, ...b: T[]): Complex;
-  divide(a: T, b: T): Complex;
-  power(a: T, b: T): Complex;
-  root(a: T, b: number): Complex;
-  ln(a: T): Complex;
-  log(a: T, b: T): Complex;
-
-  sin(a: T): Complex;
-  cos(a: T): Complex;
-  tan(a: T): Complex;
-  cot(a: T): Complex;
-  sec(a: T): Complex;
-  csc(a: T): Complex;
-
-  asin(a: T): Complex;
-  acos(a: T): Complex;
-  atan(a: T): Complex;
-  acot(a: T): Complex;
-  asec(a: T): Complex;
-  acsc(a: T): Complex;
-
-  sinh(a: T): Complex;
-  cosh(a: T): Complex;
-  tanh(a: T): Complex;
-  coth(a: T): Complex;
-  sech(a: T): Complex;
-  csch(a: T): Complex;
-
-  asinh(a: T): Complex;
-  acosh(a: T): Complex;
-  atanh(a: T): Complex;
-  acoth(a: T): Complex;
-  asech(a: T): Complex;
-  acsch(a: T): Complex;
+  LOGIE: complex;
 
   abs(a: T): number;
+  acos(a: T): Complex;
+  acosh(a: T): Complex;
+  acot(a: T): Complex;
+  acoth(a: T): Complex;
+  acsc(a: T): Complex;
+  acsch(a: T): Complex;
+
+  add(a: T, ...b: T[]): Complex;
+  asec(a: T): Complex;
+  asech(a: T): Complex;
+
+  asin(a: T): Complex;
+
+  asinh(a: T): Complex;
+  atan(a: T): Complex;
+  atanh(a: T): Complex;
   conjugate(a: T): Complex;
-  R(a: T): number;
-  I(a: T): number;
-  get(a: T): complex;
-  stringify(a: T): string;
+  cos(a: T): Complex;
+  cosh(a: T): Complex;
+  cot(a: T): Complex;
+  coth(a: T): Complex;
+  csc(a: T): Complex;
+  csch(a: T): Complex;
+  divide(a: T, b: T): Complex;
 
   equal(a: T, b: T): boolean;
 
   evaluate(a: string): string;
+  get(a: T): complex;
+  I(a: T): number;
+  ln(a: T): Complex;
+  log(a: T, b: T): Complex;
+  multiply(a: T, ...b: T[]): Complex;
+  power(a: T, b: T): Complex;
+  R(a: T): number;
+  root(a: T, b: number): Complex;
+  sec(a: T): Complex;
+  sech(a: T): Complex;
 
-  LOGIE: complex;
-  LOGEI: complex;
+  sin(a: T): Complex;
+
+  sinh(a: T): Complex;
+  stringify(a: T): string;
+  subtract(a: T, ...b: T[]): Complex;
+  tan(a: T): Complex;
+  tanh(a: T): Complex;
 }
 
 const cast: Icast = (a: T): Complex => new Complex(a);

@@ -1,6 +1,6 @@
+import { expect } from 'chai';
 import cast from '../src/cast';
 import Complex from '../src/complex';
-import { expect } from 'chai';
 
 describe('parser', () => {
   it('1', () => {

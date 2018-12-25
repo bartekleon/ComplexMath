@@ -14,11 +14,11 @@ Parser.Lexer = () => {
     let index = 0;
     let marker = 0;
     const T = Parser.Names;
-    function peekNextChar() {
+    const peekNextChar = () => {
         const idx = index;
         return ((idx < length) ? expression.charAt(idx) : '\x00');
-    }
-    function getNextChar() {
+    };
+    const getNextChar = () => {
         let ch = '\x00';
         const idx = index;
         if (idx < length) {
@@ -26,25 +26,19 @@ Parser.Lexer = () => {
             index += 1;
         }
         return ch;
-    }
-    function isWhiteSpace(ch) {
-        return (ch === '\u0009') || (ch === ' ') || (ch === '\u00A0');
-    }
-    function isLetter(ch) {
-        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
-    }
-    function isDecimalDigit(ch) {
-        return (ch >= '0') && (ch <= '9');
-    }
-    function createToken(type, value) {
+    };
+    const isWhiteSpace = (ch) => (ch === '\u0009') || (ch === ' ') || (ch === '\u00A0');
+    const isLetter = (ch) => (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+    const isDecimalDigit = (ch) => (ch >= '0') && (ch <= '9');
+    const createToken = (type, value) => {
         return {
             end: index - 1,
             start: marker,
             type,
             value
         };
-    }
-    function skipSpaces() {
+    };
+    const skipSpaces = () => {
         let ch;
         while (index < length) {
             ch = peekNextChar();
@@ -53,21 +47,17 @@ Parser.Lexer = () => {
             }
             getNextChar();
         }
-    }
-    function scanOperator() {
+    };
+    const scanOperator = () => {
         const ch = peekNextChar();
         if ('+-*/()^,'.indexOf(ch) >= 0) {
             return createToken(T.Operator, getNextChar());
         }
         return undefined;
-    }
-    function isIdentifierStart(ch) {
-        return (ch === '_') || isLetter(ch);
-    }
-    function isIdentifierPart(ch) {
-        return isIdentifierStart(ch) || isDecimalDigit(ch);
-    }
-    function scanIdentifier() {
+    };
+    const isIdentifierStart = (ch) => ((ch === '_') || isLetter(ch));
+    const isIdentifierPart = (ch) => (isIdentifierStart(ch) || isDecimalDigit(ch));
+    const scanIdentifier = () => {
         let ch;
         let id;
         ch = peekNextChar();
@@ -83,8 +73,8 @@ Parser.Lexer = () => {
             id += getNextChar();
         }
         return createToken(T.Identifier, id);
-    }
-    function scanNumber() {
+    };
+    const scanNumber = () => {
         let ch;
         let num;
         ch = peekNextChar();
@@ -126,11 +116,8 @@ Parser.Lexer = () => {
                 }
             }
             else {
-                ch = 'character ' + ch;
-                if (index >= length) {
-                    ch = '<end>';
-                }
-                throw new SyntaxError('Unexpected ' + ch + ' after the exponent sign');
+                ch = (index >= length) ? '<end>' : `character ${ch}`;
+                throw new SyntaxError(`Unexpected ${ch} after the exponent sign`);
             }
         }
         if (num === '.') {
@@ -143,13 +130,13 @@ Parser.Lexer = () => {
             return createToken(T.Complex, num);
         }
         return createToken(T.Number, num);
-    }
-    function reset(str) {
+    };
+    const reset = (str) => {
         expression = str;
         length = str.length;
         index = 0;
-    }
-    function next() {
+    };
+    const next = () => {
         let token;
         skipSpaces();
         if (index >= length) {
@@ -168,9 +155,9 @@ Parser.Lexer = () => {
         if (typeof token !== 'undefined') {
             return token;
         }
-        throw new SyntaxError('Unknown token from character ' + peekNextChar());
-    }
-    function peek() {
+        throw new SyntaxError(`Unknown token from character ${peekNextChar()}`);
+    };
+    const peek = () => {
         let token;
         let idx;
         idx = index;
@@ -184,7 +171,7 @@ Parser.Lexer = () => {
         }
         index = idx;
         return token;
-    }
+    };
     return {
         next,
         peek,
@@ -194,22 +181,17 @@ Parser.Lexer = () => {
 Parser.Parser = () => {
     const lexer = Parser.Lexer();
     const T = Parser.Names;
-    function matchOp(token, op) {
+    const matchOp = (token, op) => {
         return (typeof token !== 'undefined') &&
             token.type === T.Operator &&
             token.value === op;
-    }
-    // ArgumentList := Expression |
-    //                 Expression ',' ArgumentList
-    function parseArgumentList() {
+    };
+    const parseArgumentList = () => {
         let token;
         let expr;
         const args = [];
         while (true) {
             expr = parseExpression();
-            if (typeof expr === 'undefined') {
-                break;
-            }
             args.push(expr);
             token = lexer.peek();
             if (!matchOp(token, ',')) {
@@ -218,10 +200,8 @@ Parser.Parser = () => {
             lexer.next();
         }
         return args;
-    }
-    // FunctionCall ::= Identifier '(' ')' ||
-    //                  Identifier '(' ArgumentList ')'
-    function parseFunctionCall(name) {
+    };
+    const parseFunctionCall = (name) => {
         let token;
         let args = [];
         token = lexer.next();
@@ -231,7 +211,7 @@ Parser.Parser = () => {
         }
         token = lexer.next();
         if (!matchOp(token, ')')) {
-            throw new SyntaxError('Expecting ) in a function call "' + name + '"');
+            throw new SyntaxError(`Expecting ) in a function call "${name}"`);
         }
         return {
             FunctionCall: {
@@ -239,12 +219,8 @@ Parser.Parser = () => {
                 name
             }
         };
-    }
-    // Primary ::= Identifier |
-    //             Number |
-    //             '(' Assignment ')' |
-    //             FunctionCall
-    function parsePrimary() {
+    };
+    const parsePrimary = () => {
         let token;
         let expr;
         token = lexer.peek();
@@ -285,11 +261,9 @@ Parser.Parser = () => {
                 Expression: expr
             };
         }
-        throw new SyntaxError('Parse error, can not process token ' + token.value);
-    }
-    // Unary ::= Primary |
-    //           '-' Unary
-    function parseUnary() {
+        throw new SyntaxError(`Parse error, can not process token ${token.value}`);
+    };
+    const parseUnary = () => {
         let token;
         let expr;
         token = lexer.peek();
@@ -304,11 +278,8 @@ Parser.Parser = () => {
             };
         }
         return parsePrimary();
-    }
-    // Multiplicative ::= Unary |
-    //                    Multiplicative '*' Unary |
-    //                    Multiplicative '/' Unary
-    function parseMultiplicative() {
+    };
+    const parseMultiplicative = () => {
         let expr;
         let token;
         expr = parseUnary();
@@ -325,11 +296,8 @@ Parser.Parser = () => {
             token = lexer.peek();
         }
         return expr;
-    }
-    // Additive ::= Multiplicative |
-    //              Additive '+' Multiplicative |
-    //              Additive '-' Multiplicative
-    function parseAdditive() {
+    };
+    const parseExpression = () => {
         let expr;
         let token;
         expr = parseMultiplicative();
@@ -346,24 +314,20 @@ Parser.Parser = () => {
             token = lexer.peek();
         }
         return expr;
-    }
-    // Expression ::= Assignment
-    function parseExpression() {
-        return parseAdditive();
-    }
-    function parse(expression) {
+    };
+    const parse = (expression) => {
         let expr;
         let token;
         lexer.reset(expression);
         expr = parseExpression();
         token = lexer.next();
         if (typeof token !== 'undefined') {
-            throw new SyntaxError('Unexpected token ' + token.value);
+            throw new SyntaxError(`Unexpected token ${token.value}`);
         }
         return {
             Expression: expr
         };
-    }
+    };
     return {
         parse
     };
@@ -415,26 +379,26 @@ Parser.Context = () => {
 Parser.Evaluator = () => {
     const parser = Parser.Parser();
     const context = Parser.Context();
-    function exec(node) {
+    const exec = (node) => {
         let left;
         let right;
-        let expr;
-        let args;
         let i;
-        if (node.hasOwnProperty('Expression')) {
+        if (node.Expression !== undefined) {
             return exec(node.Expression);
         }
-        if (node.hasOwnProperty('Number')) {
+        if (node.Number !== undefined) {
             return new complex_1.default([parseFloat(node.Number), 0]);
         }
-        if (node.hasOwnProperty('Complex')) {
-            return new complex_1.default([0, parseFloat(node.Complex === 'i' ? 1 : node.Complex)]);
+        if (node.Complex !== undefined) {
+            return new complex_1.default([0, parseFloat(node.Complex === 'i' ? '1' : node.Complex)]);
         }
-        if (node.hasOwnProperty('Binary')) {
-            node = node.Binary;
-            left = exec(node.left);
-            right = exec(node.right);
-            switch (node.operator) {
+        if (node.Binary !== undefined) {
+            left = exec(node.Binary.left);
+            right = exec(node.Binary.right);
+            if (typeof left === 'number') {
+                left = new complex_1.default(left);
+            }
+            switch (node.Binary.operator) {
                 case '+':
                     return left.add(right);
                 case '-':
@@ -446,48 +410,53 @@ Parser.Evaluator = () => {
                 case '^':
                     return left.power(right);
                 default:
-                    throw new SyntaxError('Unknown operator ' + node.operator);
+                    throw new SyntaxError(`Unknown operator ${node.Binary.operator}`);
             }
         }
-        if (node.hasOwnProperty('Unary')) {
-            node = node.Unary;
-            expr = exec(node.expression);
-            switch (node.operator) {
+        if (node.Unary !== undefined) {
+            const expr = new complex_1.default(exec(node.Unary.expression));
+            switch (node.Unary.operator) {
                 case '+':
                     return expr;
                 case '-':
                     return new complex_1.default([-expr.get()[0], -expr.get()[1]]);
                 default:
-                    throw new SyntaxError('Unknown operator ' + node.operator);
+                    throw new SyntaxError(`Unknown operator ${node.Unary.operator}`);
             }
         }
-        if (node.hasOwnProperty('Identifier')) {
-            if (context.Constants.hasOwnProperty(node.Identifier)) {
+        if (node.Identifier !== undefined) {
+            if (context.Constants[node.Identifier] !== undefined) {
                 return new complex_1.default(context.Constants[node.Identifier]);
             }
             throw new SyntaxError('Unknown identifier');
         }
-        if (node.hasOwnProperty('FunctionCall')) {
-            expr = node.FunctionCall;
+        if (node.FunctionCall !== undefined) {
+            const expr = node.FunctionCall;
             if (context.Functions.indexOf(expr.name) > -1) {
-                args = [];
+                const args = [];
                 for (i = 0; i < expr.args.length; i += 1) {
-                    args.push(exec(expr.args[i]));
+                    args.push(new complex_1.default(exec(expr.args[i])));
                 }
                 const arg = args.shift();
                 if (args.length > 0) {
-                    return (args[0][expr.name])(arg);
+                    if (expr.name !== 'log' && expr.name !== 'root') {
+                        throw new SyntaxError(`${expr.name} function can have only one parameter`);
+                    }
+                    return ((args[0])[expr.name])(arg);
+                }
+                if (expr.name === 'log') {
+                    throw new SyntaxError(`${expr.name} function must have two parameters`);
                 }
                 return (arg[expr.name])();
             }
-            throw new SyntaxError('Unknown function ' + expr.name);
+            throw new SyntaxError(`Unknown function ${expr.name}`);
         }
         throw new SyntaxError('Unknown syntax node');
-    }
-    function evaluate(expr) {
+    };
+    const evaluate = (expr) => {
         const tree = parser.parse(expr);
         return exec(tree);
-    }
+    };
     return {
         evaluate
     };

@@ -1,5 +1,5 @@
-import Complex from '../src/complex';
 import { expect } from 'chai';
+import Complex from '../src/complex';
 
 describe('parser', () => {
   it('1', () => {

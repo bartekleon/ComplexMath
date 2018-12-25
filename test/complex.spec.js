@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const complex_1 = require("../src/complex");
 const chai_1 = require("chai");
+const complex_1 = require("../src/complex");
 describe('parser', () => {
     it('1', () => {
         chai_1.expect(new complex_1.default('4+5i').stringify()).to.be.equal('4+5i');
