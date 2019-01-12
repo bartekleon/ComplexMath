@@ -184,7 +184,7 @@ class Complex {
         const angle = Math.atan2(x[1], x[0]);
         const com = new Complex([0, 0]);
         const R = Math.pow(r, 1 / a);
-        for (let k = 0; k <= a - 1; k++) {
+        for (let k = 0; k <= a - 1; k += 1) {
             const theta = (angle + k * Math.PI * 2) / a;
             com.numbers.push([R * Math.cos(theta), R * Math.sin(theta)]);
         }
